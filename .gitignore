@@ -1,0 +1,12 @@
+.idea/*
+*.sqlite3
+*.pyc
+.codeintel/*
+*.log
+fabfile.py
+.directory
+fab_*
+venv
+media
+.rdb
+
