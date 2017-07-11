@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+    <div class="container">
+    <h1>Summary</h1>
+    <a href="/summary"><button type="button" {% if '/summary/' in request.path %} class="btn btn-primary active" {% else %} class="btn btn-primary" {% endif %}>Sum</button></a>
+    <a href="/summary-average"><button type="button" {% if '/summary-average/' in request.path %} class="btn btn-primary active" {% else %} class="btn btn-primary"{% endif %}>Average</button></a>
+    <table class="table">
+    <thead>
+        <tr>
+            <td><strong>Site</strong></td>
+            <td><strong>A Value</strong></td>
+            <td><strong>B Value</strong></td>
+        </tr>
+    </thead>
+    {% for data in data %}
+        <tr>
+            <td>{{ data.name }}</td>
+            <td>{{ data.a_val|floatformat:2|intcomma }}</td>
+            <td>{{ data.b_val|floatformat:2|intcomma }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% if data %}
+        <h1>Site Details - {{ site }}</h1>
+        <table class="table">
+            <thead>
+                <tr><td><strong>Date</strong></td>
+                <td><strong>A Value</strong></td><td><strong>B Value</strong></td></tr>
+            </thead>
+            <tbody>
+            {% for d in data %}
+                <tr>
+                <td>{{ d.date }}</td>
+                <td>{{ d.a_value }}</td>
+                <td>{{ d.b_value }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h3>Incorrect site or there are no data</h3>
+    {% endif %}
+</div>
+
+{% endblock %}

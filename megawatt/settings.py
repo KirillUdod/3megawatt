@@ -34,9 +34,12 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'sites',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'megawatt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,12 +74,16 @@ WSGI_APPLICATION = 'megawatt.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mw',  # Or path to database file if using sqlite3.
+        'USER': 'mw',  # Not used with sqlite3.
+        'PASSWORD': 'mw2017',  # Not used with sqlite3.
+        'HOST': u'localhost',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': u'5432',  # Set to empty string for default. Not used with sqlite3.
     }
 }
 

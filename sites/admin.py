@@ -1,11 +1,8 @@
 from django.contrib import admin
-from .models import Site
+from .models import Site, SiteData
 
 # Register your models here.
 
 
-class SiteAdmin(admin.ModelAdmin):
-    list_display = (u'name', u'date', u'a_value', u'b_value')
-
-
-admin.site.register(Site, SiteAdmin)
+admin.site.register(Site)
+admin.site.register(SiteData)

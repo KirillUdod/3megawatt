@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Sites</h1>
+    <ul class="list-group">
+        {% for site in sites %}
+            <li class="list-group-item"><a href="{% url 'site_info' site.id %}">{{ site }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
