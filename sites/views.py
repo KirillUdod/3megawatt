@@ -1,12 +1,11 @@
-from django.shortcuts import render
+import statistics
+
 from django.views.generic import TemplateView
-# Create your views here.
 
 import psycopg2.pool
 import psycopg2.extras
 
 from .models import Site, SiteData
-
 
 
 class SitesView(TemplateView):
@@ -61,7 +60,7 @@ def get_data():
     psycopg2.extensions.register_adapter(dict, psycopg2.extras.Json)
 
     pool = psycopg2.pool.ThreadedConnectionPool(1, 100, database='mw', host='localhost', port='5432', user='mw',
-                                            password='mw2017')
+                                                password='mw2017')
     conn = pool.getconn()
     curs = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     data = []
@@ -74,22 +73,17 @@ def get_data():
             curs.execute("SELECT * FROM sites_sitedata WHERE site_id={id}". format(id=site['id']))
             mytest = curs.fetchall()
 
-            temp_arr_a = []
-            temp_arr_b = []
-            for l in mytest:
-                temp_arr_a.append(l['a_value'])
-                temp_arr_b.append(l['b_value'])
-            data1['a_val'] = sum(temp_arr_a) / float(len(temp_arr_a))
-            data1['b_val'] = sum(temp_arr_b) / float(len(temp_arr_b))
-            #
-            # data1['a_val'] = list(sum(l) / float(len(l)) for l in [arr['a_value'] for arr in mytest])
-            # data1['b_val'] = list(sum(l) / float(len(l)) for l in [arr['b_value'] for arr in mytest])
-            # print(data1)
+            # temp_arr_a = []
+            # temp_arr_b = []
+            # for l in mytest:
+            #     temp_arr_a.append(l['a_value'])
+            #     temp_arr_b.append(l['b_value'])
+            # data1['a_val'] = sum(temp_arr_a) / float(len(temp_arr_a))
+            # data1['b_val'] = sum(temp_arr_b) / float(len(temp_arr_b))
 
-            # data1['a_val'] = []
-            # data1['b_val'] = []
-            # print(list((sum(l['b_value']) / float(len(l['b_value'])) for l in mytest)))
-            # print(list(sum(l['b_value']) / float(len(l['b_value'])) for l in mytest))
+            data1['a_val'] = statistics.mean([arr['a_value'] for arr in mytest])
+            data1['b_val'] = statistics.mean([arr['b_value'] for arr in mytest])
+
             data.append(data1)
         return data
 
